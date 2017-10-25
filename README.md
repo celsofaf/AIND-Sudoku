@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: Constraint propagation, roughly speaking, is about applying problem constraints repeatedly over (potentialy all) relevant subsets of our problem. In sudoku, our relevant subsets are called *units*, where a unit is either a full line, a full column, or a 3x3 square. Every unit has 9 available places, and the digits from 1 to 9 have to be distributed over each unit, each digit appearing exactly once on every unit. For the Naked Twins problem, the only relevant units are those containing *pairs* of boxes containing exactly 2 digits remaining on them, and the same 2 digits - lets call them *ab*. On those units, we may finaly exclude the digits *ab* from the remaining 7 boxes, and we are done.  
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: I have used the two methods implemented on earlier classes: *eliminate* and *only_choice*, coupled with a search tree, as it was implemented before, with the same constraints as before. But, since we now have a new rule (sudoku is now a *diagonal* sudoku), I had to take this new rule into account. I did it in a simple way: all I did was adding two more units to the unit set: the two diagonals. And it was enough to solve the problem. ;-)  
 
 ### Install
 
