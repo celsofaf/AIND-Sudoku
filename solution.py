@@ -49,16 +49,18 @@ def naked_twins(values):
         return values
 
     sudoku = values.copy()
-    
+
     for box in double_boxes:
         for unit in units[box]:
             candidates = [candbox for candbox in unit if sudoku[candbox] == sudoku[box]]
             if len(candidates) > 1:  # found naked twins
-                for candbox in unit:
-                    if len(sudoku[candbox]) > 2:
+                for candbox in set(unit) - set(candidates):
+                    if len(sudoku[candbox]) >= 2:
                         digits = list(sudoku[box])
+                        old_value = sudoku[candbox]
                         new_value = sudoku[candbox].replace(digits[0], '').replace(digits[1],'')
-                        sudoku = assign_value(sudoku, candbox, new_value)
+                        if new_value != old_value:
+                            sudoku = assign_value(sudoku, candbox, new_value)
     return sudoku
                 
 
@@ -170,7 +172,6 @@ def search(values):
     for value in values[choice]:
         new_sudoku = values.copy()
         new_sudoku = assign_value(new_sudoku, choice, value)
-        #new_sudoku[choice] = value
         attempt = search(new_sudoku)
         if attempt:
             return attempt
